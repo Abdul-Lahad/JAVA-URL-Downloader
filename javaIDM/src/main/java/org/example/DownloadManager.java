@@ -4,13 +4,13 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.TextField;
 import org.example.config.AppConfig;
 import org.example.models.FileInfo;
@@ -20,21 +20,24 @@ public class DownloadManager {
     @FXML
     private TableView<FileInfo> TableView;
 
-    private String filename;
-    int index=0;
+    private String filename;  //file name
+    int index=0;  //index
     @FXML
-    private TextField urlTextField;
+    private TextField urlTextField; //declaration of textfield
     @FXML
     void downloadButtonClicked(ActionEvent event) {
 
-       String Url=this.urlTextField.getText();
+       String Url=this.urlTextField.getText(); //geting URL from textfield
 
-       F_name(Url);
+       F_name(Url); //geting name of file from URL
        String status="STARTING";
        String action="OPEN";
-       String path= AppConfig.Download_Path+ File.separator+filename;
 
-        FileInfo file=new FileInfo((index+1)+"",filename,Url,status,action,path);
+       String path= AppConfig.Download_Path+ File.separator+filename; //taking path to download fil from appConfig class
+
+        //initializing file info
+        FileInfo file=new FileInfo((index+1)+"",filename,Url,status,action,path,"0");
+
 
         this.index=this.index+1;
 
@@ -44,12 +47,22 @@ public class DownloadManager {
         this.urlTextField.setText("");
 
 
-        thread.start();
+        thread.start(); //downloading the file
 
 
 
 
     }
+
+    @FXML
+    void pauseButton(ActionEvent event) {
+        System.out.println("pause download");
+        DownloadThread.pause();
+
+    }
+
+
+
     //GETING FILE NAME FROM URL
     void F_name(String Url){
         try{
@@ -62,9 +75,13 @@ public class DownloadManager {
 
     public void updateUI(FileInfo metaFile) {
         System.out.println(metaFile);
-      FileInfo fileInfo= this.TableView.getItems().get(Integer.parseInt(metaFile.getIndex())-1);
-      fileInfo.setStatus(metaFile.getStatus());
-      this.TableView.refresh();
+        FileInfo fileInfo= this.TableView.getItems().get(Integer.parseInt(metaFile.getIndex())-1);
+        fileInfo.setStatus(metaFile.getStatus());
+
+        DecimalFormat decimalFormat=new DecimalFormat("0.0");//set format of the percentage
+        fileInfo.setPer(decimalFormat.format(Double.parseDouble(metaFile.getPer())));
+
+        this.TableView.refresh();
         System.out.println("____________________________________");
 
     }
@@ -88,7 +105,13 @@ public class DownloadManager {
         status.setCellValueFactory(p -> {
             return p.getValue().statusProperty();
         });
-        TableColumn<FileInfo,String > action = (TableColumn<FileInfo, String>) this.TableView.getColumns().get(4);
+        TableColumn<FileInfo,String > per = (TableColumn<FileInfo, String>) this.TableView.getColumns().get(4);
+        per.setCellValueFactory(p -> {
+            SimpleStringProperty simpleStringProperty=new SimpleStringProperty();
+            simpleStringProperty.set(p.getValue().getPer() + "%");
+            return simpleStringProperty;
+        });
+        TableColumn<FileInfo,String > action = (TableColumn<FileInfo, String>) this.TableView.getColumns().get(5);
         action.setCellValueFactory(p -> {
             return p.getValue().actionProperty();
         });

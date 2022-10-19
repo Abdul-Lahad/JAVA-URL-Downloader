@@ -18,21 +18,22 @@
          <top>
             <VBox alignment="CENTER" prefHeight="150.0" prefWidth="755.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#f20101" strokeType="OUTSIDE" strokeWidth="0.0" text="Download Manager">
+                  <Text fill="#ff5c5c" strokeType="OUTSIDE" strokeWidth="0.0" text="Download Manager">
                      <font>
-                        <Font name="Marlett" size="36.0" />
+                        <Font name="Gadugi" size="25.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="urlTextField" prefHeight="34.0" prefWidth="735.0" promptText="Enter Download URL here">
+                  <TextField fx:id="urlTextField" prefHeight="33.0" prefWidth="674.0" promptText="Enter Download URL here">
                      <font>
                         <Font name="Marlett" size="14.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#downloadButtonClicked" text="Start Download" textFill="#ee0101">
+                  <Button mnemonicParsing="false" onAction="#downloadButtonClicked" prefHeight="22.0" prefWidth="122.0" text="Start Download" textFill="#ee0101">
                      <font>
-                        <Font name="Marlett" size="14.0" />
+                        <Font name="Marlett" size="12.0" />
                      </font>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#pauseButton" prefHeight="25.0" prefWidth="123.0" text=" Cancel Download" textFill="#f50a0a" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -52,6 +53,7 @@
                 <TableColumn prefWidth="75.0" text="File Name" />
                   <TableColumn prefWidth="75.0" text="File URL" />
                   <TableColumn prefWidth="75.0" text="Status" />
+                  <TableColumn prefWidth="75.0" text="\% Completed" />
                   <TableColumn prefWidth="75.0" text="Action" />
               </columns>
                <columnResizePolicy>

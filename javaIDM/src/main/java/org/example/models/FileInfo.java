@@ -10,11 +10,12 @@ public class FileInfo {
     private SimpleStringProperty status=new SimpleStringProperty();
     private SimpleStringProperty action=new SimpleStringProperty();
     private SimpleStringProperty path=new SimpleStringProperty();
+    private SimpleStringProperty per=new SimpleStringProperty();
 
     //  TABLE PROPERTIES
 
 
-    public FileInfo(String index, String name, String url, String status,String action,String path) {
+    public FileInfo(String index, String name, String url, String status,String action,String path,String per) {
 
         this.index.set(index);
         this.name.set(name);
@@ -22,6 +23,7 @@ public class FileInfo {
         this.status.set(status);
         this.action.set(action);
         this.path.set(path);
+        this.per.set(per);
 
     }
 
@@ -95,6 +97,18 @@ public class FileInfo {
 
     public void setPath(String path) {
         this.path.set(path);
+    }
+
+    public String getPer() {
+        return per.get();
+    }
+
+    public SimpleStringProperty perProperty() {
+        return per;
+    }
+
+    public void setPer(String per) {
+        this.per.set(per);
     }
 
     @Override
