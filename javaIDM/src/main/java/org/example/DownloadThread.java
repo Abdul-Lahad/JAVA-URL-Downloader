@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.models.FileInfo;
-
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,19 +19,15 @@ public class DownloadThread extends Thread {
     public DownloadThread(FileInfo file,DownloadManager manager){
         this.file=file;
         this.manager=manager;
-
     }
 
     @Override
     public void run() {
         this.file.setStatus("DOWNLOADING");
         this.manager.updateUI(this.file);
-
-
-
         try {
             //Download Cod
-//            Files.copy(new URL(this.file.getUrl()).openStream(), Paths.get(this.file.getPath()));
+
             URL url=new URL(this.file.getUrl());
             URLConnection urlConnection=url.openConnection();
             int fileSize=urlConnection.getContentLength();
@@ -42,12 +37,11 @@ public class DownloadThread extends Thread {
             double per=0.0;
             double byteSum=0.0;
 
-
             //reading data
             BufferedInputStream bufferedInputStream=new BufferedInputStream(url.openStream());
-
             //Writing data
             FileOutputStream fos=new FileOutputStream(this.file.getPath());
+
             byte[] data=new byte[1024];
 
             while (download){
@@ -79,7 +73,7 @@ public class DownloadThread extends Thread {
             if(Cancel==0){
             this.file.setStatus("DONE"); }
             else {
-                this.file.setStatus("CANCEL");
+                this.file.setStatus("CANCELED");
             }
 
         } catch (IOException e) {
@@ -94,8 +88,4 @@ public class DownloadThread extends Thread {
     public static void pause(){
         ++Cancel;
         download=false;}
-
-
-
-
 }

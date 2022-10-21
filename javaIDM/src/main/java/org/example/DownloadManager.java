@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,26 +17,25 @@ import org.example.models.FileInfo;
 public class DownloadManager {
 
     @FXML
-    private TableView<FileInfo> TableView;
+    private TableView<FileInfo> TableView; //   TABEL VIEW
 
     private String filename;  //file name
     int index=0;  //index
+
     @FXML
-    private TextField urlTextField; //declaration of textfield
+    private TextField urlTextField; //declaration of TEXT FIELD
     @FXML
-    void downloadButtonClicked(ActionEvent event) {
+    void downloadButtonClicked(ActionEvent event) { //ACTION LISTENER FOR STARTING DOWNLOAD
 
        String Url=this.urlTextField.getText(); //geting URL from textfield
 
-       F_name(Url); //geting name of file from URL
+       F_name(Url); //geting name of file from URL BY CELLING F_NAME METHOD
        String status="STARTING";
        String action="OPEN";
-
        String path= AppConfig.Download_Path+ File.separator+filename; //taking path to download fil from appConfig class
 
         //initializing file info
         FileInfo file=new FileInfo((index+1)+"",filename,Url,status,action,path,"0");
-
 
         this.index=this.index+1;
 
@@ -49,19 +47,11 @@ public class DownloadManager {
 
         thread.start(); //downloading the file
 
+    }//END OF ACTIONLISTENER OF START DOWNLOAD BUTTON
 
-
-
-    }
-
+    //CANCEL DOWNLOAD BUTTON
     @FXML
-    void pauseButton(ActionEvent event) {
-        System.out.println("pause download");
-        DownloadThread.pause();
-
-    }
-
-
+    void pauseButton(ActionEvent event) {DownloadThread.pause();}
 
     //GETING FILE NAME FROM URL
     void F_name(String Url){
@@ -72,7 +62,6 @@ public class DownloadManager {
            e.printStackTrace();
         }
     }
-
     public void updateUI(FileInfo metaFile) {
         System.out.println(metaFile);
         FileInfo fileInfo= this.TableView.getItems().get(Integer.parseInt(metaFile.getIndex())-1);

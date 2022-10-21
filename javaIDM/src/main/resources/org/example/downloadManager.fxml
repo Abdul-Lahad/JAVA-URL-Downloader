@@ -18,7 +18,7 @@
          <top>
             <VBox alignment="CENTER" prefHeight="150.0" prefWidth="755.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#ff5c5c" strokeType="OUTSIDE" strokeWidth="0.0" text="Download Manager">
+                  <Text fill="#ff5c5c" strokeType="OUTSIDE" strokeWidth="0.0" text="URL   Downloader">
                      <font>
                         <Font name="Gadugi" size="25.0" />
                      </font>
